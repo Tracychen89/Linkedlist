@@ -10,74 +10,100 @@ namespace Linkedlist
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Add First:");
-            LinkedList myList1 = new LinkedList();
-
-            myList1.AddFirst("Hello");
-            myList1.AddFirst("Magical");
-            myList1.AddFirst("World");
-            myList1.printAllNodes();
-
-            Console.WriteLine("Add Last:");
-            LinkedList myList2 = new LinkedList();
-
-            myList2.AddLast("Hello");
-            myList2.AddLast("Magical");
-            myList2.AddLast("World");
-            myList2.printAllNodes();
+            LinkedList list = new LinkedList();
+            Console.WriteLine("It is empty? - "+ list.Empty);
+            Console.WriteLine("Count -" + list.Count);
             
             Console.ReadLine();
         }
     }
     public class Node
     {
-        public Node next;
-        public Object data;
+        /*Constructor:
+         * [ ] Node(Object data, Node next)
+         * 
+         * private field:
+         * [ ]Object data - contain the data of the node, what we want to store in the list
+         * [ ]Node next - referrence to the next node in the list
+         * 
+         * public properties:
+         * [ ] Data - get and set the data field
+         * [ ] Next - get and set the next field
+         */
+        private object data;
+        private Node next;
+
+        public Node (object data, Node next)
+        { //???
+            this.data = data;
+            this.next = next;
+        }
+        public object Data
+        {
+            get { return this.data; }
+            set { this.data = value; }
+        }
+
+        public Node Next
+        {
+            get { return this.next; }
+            set { this.next = value; }
+        }
     }
 
     public class LinkedList
     {
+        /*Constructor:
+         * [ ] LinkedList() - Initialized the private fields
+         * 
+         * private fields:
+         * [ ] Node head - is a referrence to the FIRST node in the list
+         * [ ] int size - the current size of the list
+         * 
+         * public properties:
+         * [ ] Empty - if the list is empty
+         * [ ] Count - how mant items are in the list
+         * [ ] Indexer - Access data like an array
+         * 
+         * Methods:
+         * [ ] Add(int index, object o) - Add item to list at specified index
+         * [ ] Add(object o) - Add an item to the END of the list
+         * [ ] Remove(int index) - Remove the item in the list at the specified index
+         * [ ] Clear() - Clear the list
+         * [ ] IndexOf(object o) - gets the index of the item in the list, if not in list return -1
+         * [ ] Contain(object o) - if the list contains the object
+         * [ ] Get(int index) - Gets item at the specified index
+         */
         private Node head;
+        private int count;
 
-        public void printAllNodes()
+        public LinkedList()
         {
-            Node current = head;
-            while (current != null)
-            {
-                Console.WriteLine(current.data);
-                current = current.next;
-            }
+            this.head = null;
+            this.count = 0;
         }
 
-        public void AddFirst(Object data)
+        public bool Empty
         {
-            Node toAdd = new Node();
-            toAdd.data = data;
-            toAdd.next = head;
-            head = toAdd;
+            get { return this.count == 0; }
+        }
+        public int Count
+        {
+            get { return this.count; }
+        }
+        public object Add(int index, object o)
+        {
+            if ( index < 0)
+            {
+                throw new ArgumentOutOfRangeException("Index " + index);
+            }
+            if ( index > count)
+            {
+                index = count;
+            }
+
         }
 
-        public void AddLast(Object data)
-        {
-            if (head == null)
-            {
-                head = new Node();
-                head.data = data;
-                head.next = null;
-
-            }
-            else
-            {
-                Node toAdd = new Node();
-                toAdd.data = data;
-                Node current = head;
-                while(current.next != null)
-                {
-                    current = current.next;
-                }
-                current.next = toAdd;
-            }
-        }
     }
 }
 
